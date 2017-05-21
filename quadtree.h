@@ -2,18 +2,18 @@
 #define QUADTREE_H
 
 /*
-	Instituto TecnolÛgico de Buenos Aires
+	Instituto Tecnol√≥gico de Buenos Aires
 	22.08 - Algoritmos y Estructuras de Datos
 
-	Trabajo Pr·ctico n∞ 8 - Listas y ·rboles
+	Trabajo Pr√°ctico n¬∞ 8 - Listas y √°rboles
 
-	Grupo 2:	- Parra, RocÌo					- legajo 57.669
-				- Pierdominici, MatÌas Nicol·s	- legajo 57.498
-				- Stewart Harris, MarÌa Luz		- legajo 57.676
+	Grupo 2:	- Parra, Roc√≠o					- legajo 57.669
+				- Pierdominici, Mat√≠as Nicol√°s	- legajo 57.498
+				- Stewart Harris, Mar√≠a Luz		- legajo 57.676
 
 **************************************************************************************************
 
-	Compresor / descompresor de im·genes de formato PNG basado en el algoritmo Quad Tree.
+	Compresor / descompresor de im√°genes de formato PNG basado en el algoritmo Quad Tree.
 
 */
 
@@ -30,9 +30,9 @@
 //hasta ese punto. por ejemplo, si descomprimo el archivo "nombre.eda.eda", se creara un archivo llamado "nombre.png"
 
 bool qtCompress(char * path, float fidelity);
-/*		recibe el path de una IMAGEN CUADRADA EN FORMATO PNG, y genera un archivo con el mismo nombre con extension ".eda"
-	con esa imagen comprimida segun el algoritmo Quad Tree. Devuelve true si pudo comprimir exitosamente y false en caso
-	contrario.
+/*		recibe el path de una IMAGEN CUADRADA EN FORMATO PNG, cuyo lado en pixeles es una potencia de 2, y genera un
+	archivo con el mismo nombre con extension ".eda" con esa imagen comprimida segun el algoritmo Quad Tree. Devuelve true 
+	si pudo comprimir exitosamente y false en caso contrario.
 		el parametro 'fidelity' determinara que tanto se comprimira la imagen: cuanto mas alto, mas calidad se conservara 
 	y menos se comprimira y viceversa. debe ser un numero mayor que 0 y menor que 100 (~=porcentaje de calidad de la imagen
 	que se obtendra)
