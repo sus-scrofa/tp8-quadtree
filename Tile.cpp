@@ -1,7 +1,7 @@
 #include "Tile.h"
 #include <allegro5\allegro_primitives.h>
 
-//TODO: constructor sin parametros
+//TODO: constructor sin parametros, que cargue quizas una imagen de error? kcyo
 
 Tile::Tile() {};
 
@@ -33,6 +33,7 @@ Tile::Tile(std::string fileName, unsigned int side)
 	}
 };
 
+
 Tile::~Tile()
 {
 	if (img != nullptr)
@@ -41,11 +42,31 @@ Tile::~Tile()
 	}
 }
 
-void Tile::toggleSelect() { selected = !selected; }
 
-bool Tile::isSelected() { return selected; }
+void Tile::toggleSelect() 
+{ 
+	selected = !selected; 
+}
 
-std::string Tile::getFileName() { return fileName; }
+void Tile::select()
+{
+	selected = true;
+}
+
+void Tile::deselect()
+{
+	selected = false;
+}
+
+bool Tile::isSelected() 
+{ 
+	return selected; 
+}
+
+std::string Tile::getFileName() 
+{ 
+	return fileName; 
+}
 
 void Tile::draw(Point p)
 {
@@ -74,4 +95,7 @@ void Tile::draw(Point p)
 	//TODO: GJKLAHGRELSZ
 };
 
-bool Tile::isValid() { return valid; }
+bool Tile::isValid() 
+{ 
+	return valid; 
+}

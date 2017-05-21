@@ -9,44 +9,62 @@ bool Board::isLastPage()
 	return ((int)((int)(tiles.getSize() - 1) / TILESXPAGE) == pageNumber);
 }
 
-Board::Board() { pageNumber = 0; }
+Board::Board() 
+{ 
+	pageNumber = 0; 
+}
 
-Board::~Board() {/*TODO: delete de las tiles*/ }
+Board::~Board() 
+{
+	tiles.removeAll();
+}
 
-void Board::addTile(std::string fileName)
+bool Board::addTile(std::string fileName)
+{
+	Tile* newTile = new Tile(fileName, TILE_SIDE);
+	if (newTile->isValid())
 	{
-		Tile* newTile = new Tile(fileName, TILE_SIDE);
-		if (newTile->isValid())
-		{
-			tiles.addElement(*newTile, tiles.getSize());
-		}
+		tiles.addElement(*newTile, tiles.getSize());
+		return true;
 	}
+	return false;
+}
 
 void Board::nextPage()
+{
+	if (!isLastPage())
 	{
-		if (!isLastPage())
-		{
-			pageNumber++;
-		}
+		pageNumber++;
 	}
+}
 
 void Board::prevPage()
+{
+	if (pageNumber > 0)
 	{
-		if (pageNumber > 0)
-		{
-			pageNumber--;
-		}
+		pageNumber--;
 	}
+}
 
 void Board::toggleSelectTile(unsigned int tileNumber)
-	{
-		tiles.getElement(pageNumber*TILESXPAGE + tileNumber).toggleSelect();
-	}
+{
+	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).toggleSelect();
+}
+
+void Board::selectTile(unsigned int tileNumber)
+{
+	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).select();
+}
+
+void Board::deselectTile(unsigned int tileNumber)
+{
+	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).deselect();
+}
 
 void Board::draw()
+{
+	for (int i = 0; i < TILESXPAGE && i < (tiles.getSize() - TILESXPAGE * pageNumber); i++)
 	{
-		for (int i = 0; i < TILESXPAGE && i < (tiles.getSize() - TILESXPAGE * pageNumber); i++)
-		{
-			tiles.getElement(pageNumber*TILESXPAGE + i).draw(Point(MARGIN + (i%COLS)*(MARGIN+TILE_SIDE), MARGIN +  (int)(i/COLS)*(MARGIN+TILE_SIDE)));
-		}
+		tiles.getElement(pageNumber*TILESXPAGE + i).draw(Point(MARGIN + (i%COLS)*(MARGIN+TILE_SIDE), MARGIN +  (int)(i/COLS)*(MARGIN+TILE_SIDE)));
 	}
+}
