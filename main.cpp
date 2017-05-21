@@ -19,24 +19,10 @@ int main()
 	if (!al_init_image_addon())
 		cout << "no se inicializo img addon" << endl;
 	if (!al_init_primitives_addon())
+	{
 		cout << "no se inicializo primitives addon" << endl;
-
-	//EDAlist<char> list;
-
-	//list.addElement('h', list.getSize());
-	//list.addElement('o', list.getSize());
-	//list.addElement('l', list.getSize());
-	//list.addElement('a', list.getSize());
-	//list.addElement(' ', list.getSize());
-	//list.addElement('m', list.getSize());
-	//list.addElement('u', list.getSize());
-	//list.addElement('n', list.getSize());
-	//list.addElement('d', list.getSize());
-	//list.addElement('o', list.getSize());
-
-	//list.addElement('X', 0);
-
-	//list.print();
+		al_shutdown_image_addon();
+	}
 
 	Display dis(500, 500, al_map_rgb(200, 200, 0));
 
@@ -45,12 +31,34 @@ int main()
 
 	std::string f1 = "png1.png";
 	std::string f2 = "png2.png";
+	std::string f3 = "png3.png";
+	std::string f4 = "png4.png";
+	std::string f5 = "png5.png";
+	std::string f6 = "png6.png";
+	std::string f7 = "png7.png";
+	std::string f8 = "png8.png";
+	std::string f9 = "png9.png";
+	std::string f10 = "png10.png";
 	unsigned int size = 200;
 
 	Board b;
-	b.addTile(f1);
-	b.draw();
+	b.addTile("png1.png");
+	b.addTile(f2);
+	b.addTile(f3);
+	b.addTile(f4);
+	b.addTile(f5);
+	b.addTile(f6);
+	b.addTile(f7);
+	b.addTile(f8);
+	b.addTile(f9);
+	b.addTile(f10);
 
+	b.draw();
+	dis.showChanges();
+
+	dis.colorBackground();
+	b.nextPage();
+	b.draw();
 	dis.showChanges();
 
 	al_destroy_display(dis.getDisplay());

@@ -12,7 +12,7 @@ public:
 		firstNode = lastNode = nullptr; 
 	}
 
-	void addElement(T element, unsigned long position)
+	void addElement(T& element, unsigned long position)
 	{
 		if (position <= size)
 		{
