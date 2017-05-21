@@ -1,14 +1,5 @@
 #include "Board.h"
 
-bool Board::isLastPage()
-{
-	if (!tiles.getSize())	//si la lista esta vacia, va a haber siempre una sola pagina
-	{
-		return true;
-	}
-	return ((int)((int)(tiles.getSize() - 1) / TILESXPAGE) == pageNumber);
-}
-
 Board::Board() 
 { 
 	pageNumber = 0; 
@@ -28,6 +19,16 @@ bool Board::addTile(std::string fileName)
 		return true;
 	}
 	return false;
+}
+
+Tile & Board::getTile(unsigned long tileNumber)
+{
+	return (tiles.getElement(tileNumber));
+}
+
+void Board::removeTile(unsigned long tileNumber)
+{
+	tiles.removeElement(tileNumber);
 }
 
 void Board::nextPage()
@@ -67,4 +68,18 @@ void Board::draw()
 	{
 		tiles.getElement(pageNumber*TILESXPAGE + i).draw(Point(MARGIN + (i%COLS)*(MARGIN+TILE_SIDE), MARGIN +  (int)(i/COLS)*(MARGIN+TILE_SIDE)));
 	}
+}
+
+unsigned long Board::getListSize()
+{
+	return(tiles.getSize());
+}
+
+bool Board::isLastPage()
+{
+	if (!tiles.getSize())	//si la lista esta vacia, va a haber siempre una sola pagina
+	{
+		return true;
+	}
+	return ((int)((int)(tiles.getSize() - 1) / TILESXPAGE) == pageNumber);
 }

@@ -37,6 +37,16 @@ public:
 	******************************************************************************/
 	bool addTile(std::string fileName);
 
+	/*
+
+	*/
+	Tile & getTile(unsigned long tileNumber);
+
+	/**
+	
+	**/
+	void removeTile(unsigned long tileNumber);
+
 	/***********************************************************************
 	Funcion nextPage
 
@@ -108,6 +118,11 @@ public:
 	false si no se esta en la ultima pagina
 	*****************************************/
 	bool isLastPage();
+
+	/**
+	
+	**/
+	unsigned long getListSize();
 
 private:
 
