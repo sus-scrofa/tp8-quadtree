@@ -1,4 +1,3 @@
-
 #ifndef Background_hpp
 #define Background_hpp
 

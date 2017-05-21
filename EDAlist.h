@@ -6,12 +6,27 @@
 template <typename T> class EDAlist
 {
 public:
+
 	EDAlist() 
 	{ 
 		size = 0; 
 		firstNode = lastNode = nullptr; 
 	}
 
+	~EDAlist() 
+	{
+		removeAll();
+	}
+
+	/*****************************************************
+	Funcion EDAlist::addElement
+	Agrega un elemento del tipo T a la lista.
+
+	Recibe:
+	Referencia al elemento T a agregar
+	unsigned long: posicion de la lista en donde agregar
+
+	*****************************************************/
 	void addElement(T& element, unsigned long position)
 	{
 		if (position <= size)
@@ -54,6 +69,13 @@ public:
 		}
 	}
 
+	/*********************************************************************
+	Funcion EDAlist::removeElement
+	Elimina un elemento de la lista
+
+	Recibe:
+	unsigned long position: posicion del elemento que se quiere eliminar
+	*********************************************************************/
 	void removeElement(unsigned long position)
 	{
 		if (position < size)
@@ -83,6 +105,16 @@ public:
 		}
 	}
 
+	/*******************************************************************
+	Funcion EDAlist::getElement
+	Devuelve un elemento de la lista
+
+	Recibe:
+	unsigned long position: posicion del elemento que se quiere obtener
+
+	Devuelve:
+	Referencia al elemento de la posicion position
+	*******************************************************************/
 	T& getElement(unsigned long position)
 	{
 		Node <T> * currentNode = firstNode;
@@ -95,17 +127,45 @@ public:
 		return currentNode->data;
 	}
 
-	unsigned int getSize() { return size; };
+	/**************************************
+	Funcion removeAll
 
-#ifdef DEBUG
-	void print()
+	Elimina todos los elementos de la lista
+	***************************************/
+	void removeAll()
 	{
-		for (Node <T> * currentNode = firstNode; currentNode != nullptr; currentNode = currentNode->nextNode)
-			cout << currentNode->data;
-
-		//	cout << "Size " << size << endl;
+		while (getSize())	//mientras que no este vacia
+		{
+			removeElement(0);	//eliminar el primer elemento hasta que no queden mas
+		}
 	}
-#endif // DEBUG
+
+	/***********************************************
+	Funcion EDAlist::getSize
+
+	Devuelve:
+	unsigned int: cantidad de elementos de la lista
+	************************************************/
+	unsigned int getSize() 
+	{ 
+		return size; 
+	}
+	
+	/**************************************
+	Funcion EDAlist::isEmpty
+
+	Devuelve:
+	true si no hay elementos en la lista
+	false si no hay elementos en la lista
+	**************************************/
+	bool isEmpty()
+	{
+		if (size)
+		{
+			return false;
+		}
+		return true;
+	}
 
 private:
 	template <typename T> struct Node

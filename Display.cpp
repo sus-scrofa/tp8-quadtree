@@ -1,4 +1,3 @@
-
 #include "Display.hpp"
 
 using namespace std;
@@ -8,7 +7,6 @@ using namespace std;
 // Constructor de un objeto Display.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 Display::Display(float _displayWidth, float _displayHeight, ALLEGRO_COLOR color)
 {
 	displayWidth = _displayWidth;		//cargar tamanio de display
@@ -41,7 +39,6 @@ Display::Display(float _displayWidth, float _displayHeight, ALLEGRO_COLOR color)
 // Dibuja en pantalla el fondo del display
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 void Display::drawBackground()
 {
 	//TODO:
@@ -53,7 +50,6 @@ void Display::drawBackground()
 // Pinta todo el display de un color
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 void Display::colorBackground()
 {
 	al_clear_to_color( color );
@@ -65,7 +61,6 @@ void Display::colorBackground()
 // Indica si el objeto se contruyo de forma correcta
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 bool Display::isValid()
 {
 	return valid;
@@ -77,7 +72,6 @@ bool Display::isValid()
 // Muestra en pantalla los cambios dibujados
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 void Display::showChanges()
 {
 	al_flip_display();
@@ -89,11 +83,7 @@ void Display::showChanges()
 // Getter del ALLEGRO_DISPLAY* display.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-
 ALLEGRO_DISPLAY* Display::getDisplay()
 {
 	return display;
 }
-
-
-
