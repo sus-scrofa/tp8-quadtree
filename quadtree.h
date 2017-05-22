@@ -2,14 +2,14 @@
 #define QUADTREE_H
 
 /*
-	Instituto Tecnol√≥gico de Buenos Aires
+	Instituto TecnolÛgico de Buenos Aires
 	22.08 - Algoritmos y Estructuras de Datos
-	Trabajo Pr√°ctico n¬∞ 8 - Listas y √°rboles
-	Grupo 2:	- Parra, Roc√≠o					- legajo 57.669
-				- Pierdominici, Mat√≠as Nicol√°s	- legajo 57.498
-				- Stewart Harris, Mar√≠a Luz		- legajo 57.676
+	Trabajo Pr·ctico n∞ 8 - Listas y ·rboles
+	Grupo 2:	- Parra, RocÌo					- legajo 57.669
+				- Pierdominici, MatÌas Nicol·s	- legajo 57.498
+				- Stewart Harris, MarÌa Luz		- legajo 57.676
 **************************************************************************************************
-	Compresor / descompresor de im√°genes de formato PNG basado en el algoritmo Quad Tree.
+	Compresor / descompresor de im·genes de formato PNG basado en el algoritmo Quad Tree.
 */
 
 
@@ -24,7 +24,7 @@
 //	a su vez, si el nombre del archivo recibido contiene una secuencia de caracteres igual a su extension, se recortara
 //hasta ese punto. por ejemplo, si descomprimo el archivo "nombre.eda.eda", se creara un archivo llamado "nombre.png"
 
-bool qtCompress(char * path, float fidelity);
+bool qtCompress(const char * path, float fidelity);
 /*		recibe el path de una IMAGEN CUADRADA EN FORMATO PNG, cuyo lado en pixeles es una potencia de 2, y genera un
 	archivo con el mismo nombre con extension ".eda" con esa imagen comprimida segun el algoritmo Quad Tree. Devuelve true 
 	si pudo comprimir exitosamente y false en caso contrario.
@@ -33,7 +33,7 @@ bool qtCompress(char * path, float fidelity);
 	que se obtendra)
 */
 
-bool qtDecompress(char * path, unsigned int size);
+bool qtDecompress(const char * path, unsigned int size);
 /*		realiza la operacion inversa a qtCompress(). recibe el path del archivo .eda que se desea descomprimir, y crea una
 	archivo de tipo .png con la imagen descomprimida, de tamano size x size en pixeles. size debe ser una potencia de 2 
 		devuelve true si pudo realizar la descompresion y viceversa. */

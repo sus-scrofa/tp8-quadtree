@@ -47,12 +47,12 @@ dividir el cuadrante o no), con lo cual si en algun momento no se sigue ese form
 
 
 
-bool qtCompress(char * path, float fidelity)
+bool qtCompress(const char * path, float fidelity)
 {
 	if (path == NULL || fidelity >= 100 || fidelity <= 0 )
 		return false;	//verificar validez de los parametros
 
-	char * endName = strstr(path, ".png");
+	const char * endName = strstr(path, ".png");
 	if (endName == NULL)	// verificar que el path recibido corresponde a un archivo .png
 		return false;		//si contiene el string .png pero no es un archivo de ese tipo, lodepng devolvera error
 
@@ -128,12 +128,12 @@ void quadtree(comp_t * c, unsigned int side, unsigned int x, unsigned int y)
 
 
 
-bool qtDecompress(char * path, unsigned int size)
+bool qtDecompress(const char * path, unsigned int size)
 {
 	if (path == NULL || size == 0 || (size & (size-1)) != 0 )
 		return false;	//verificar los parametros recibidos
 	
-	char * endName = strstr(path, ".eda");	// verificar que el path corresponde a un archivo .eda
+	const char * endName = strstr(path, ".eda");	// verificar que el path corresponde a un archivo .eda
 	if (endName == NULL)
 		return false;
 
