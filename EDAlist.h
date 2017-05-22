@@ -1,8 +1,6 @@
 #pragma once
 #include <iostream>
 
-#define	DEBU
-
 template <typename T> class EDAlist
 {
 public:

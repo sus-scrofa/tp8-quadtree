@@ -1,19 +1,32 @@
 #pragma once
+
 #include <string>
 #include <iostream>
-#include <allegro5\allegro.h>
+
 #include <allegro5\allegro_image.h>
+#include <allegro5\allegro_primitives.h>
+#include <allegro5\allegro_font.h>
+#include <allegro5\allegro_color.h>
+
 #include <algorithm>
 #include "Point.h"
+#include "Gif.h"
 
+#define COMPRESS 0
+#define DECOMPRESS 1
+
+#define	MODE COMPRESS
 
 class Tile
 {
+
 public:
 
-	Tile();
+	Tile() {};
+
 	Tile(const Tile& other);
-	Tile(std::string fileName, unsigned int side );
+
+	Tile(std::string fileName, float side, ALLEGRO_FONT * font, ALLEGRO_COLOR color);
 
 	/***************************************************
 	Destructor
@@ -68,7 +81,7 @@ public:
 	Recibe:
 	Point p: punto correspondiente a la esquina superior izquierda de la imagen 
 	**********************************************************************************/
-	void draw(Point p);
+	void draw(Point p, ALLEGRO_FONT * font, ALLEGRO_COLOR color);
 	
 	/*************************************************
 	Funcion Tile::isValid
@@ -79,12 +92,23 @@ public:
 	*************************************************/
 	bool isValid();
 
-private:
 
+private:
+	
 	bool valid;
 	std::string fileName;
 	bool selected;
+
+	#if MODE == COMPRESS
 	ALLEGRO_BITMAP* img;
 	unsigned int side;
-};
 
+	#elif MODE == DECOMPRESS
+	ALLEGRO_FONT * font;	//fuente a usar
+	ALLEGRO_COLOR color;	//color de la fuente
+	//gif selectedAnim;		//gif que indica que esta seleccionado
+
+	#else
+	//TODO: cout?
+	#endif
+};

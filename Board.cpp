@@ -1,8 +1,23 @@
 #include "Board.h"
+#include <algorithm>
 
-Board::Board() 
+Board::Board(float w, float h, ALLEGRO_FONT * font, ALLEGRO_COLOR color) 
 { 
+	//se calcula que la suma de los margenes ocupa el 20% del alto o del ancho de la pantalla, lo que sea menor
+	if (h < w)	//si la altura es menor que el ancho
+	{
+		margin = h * 0.2 / (float)(ROWS + 1);
+		tileSide = h * 0.8 / (float)(ROWS);
+	}
+	else	//si el ancho es menor o igual al alto
+	{
+		margin = w * 0.2 / (float)(COLS + 1);
+		tileSide = w * 0.8 / (float)(COLS);
+	}
+
 	pageNumber = 0; 
+	this->font = font;
+	this->color = color;
 }
 
 Board::~Board() 
@@ -12,7 +27,8 @@ Board::~Board()
 
 bool Board::addTile(std::string fileName)
 {
-	Tile* newTile = new Tile(fileName, TILE_SIDE);
+	Tile* newTile = new Tile(fileName, tileSide, font, color);
+
 	if (newTile->isValid())
 	{
 		tiles.addElement(*newTile, tiles.getSize());
@@ -66,7 +82,9 @@ void Board::draw()
 {
 	for (int i = 0; i < TILESXPAGE && i < (tiles.getSize() - TILESXPAGE * pageNumber); i++)
 	{
-		tiles.getElement(pageNumber*TILESXPAGE + i).draw(Point(MARGIN + (i%COLS)*(MARGIN+TILE_SIDE), MARGIN +  (int)(i/COLS)*(MARGIN+TILE_SIDE)));
+		float x = margin + (i%COLS)*(margin + tileSide);
+		float y = margin + (int)(i / COLS)*(margin + tileSide);
+		tiles.getElement(pageNumber*TILESXPAGE + i).draw(Point(x, y), font, color);
 	}
 }
 

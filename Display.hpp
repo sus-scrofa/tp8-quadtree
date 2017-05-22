@@ -1,15 +1,10 @@
 #ifndef Background_hpp
 #define Background_hpp
 
-#include <iostream>
-#include <stdio.h>
-#include <string>
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_color.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_image.h>
+
 
 #define FLOORY		616		// Coordenada Y del piso donde se apoyan los worms
 #define XMIN		701.0	// Borde izquierdo de donde se mueven los worms
@@ -29,8 +24,9 @@ public:
 	void colorBackground();
 	void showChanges();
 	bool isValid();
+	float getWidth() { return displayWidth; };		//TODO mover al cpp
+	float getHeight() { return displayHeight; };
 
-	
 private:
 	bool valid;
 	ALLEGRO_DISPLAY* display;

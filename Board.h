@@ -1,25 +1,25 @@
 #pragma once
 
-#include <iostream>
 #include <string>
-
-#include "EDAlist.h"
 #include "Tile.h"
-#include "Display.hpp" //TODO: dejamos esto o lo hacemos de otra manera?
+#include "EDAlist.h"
 
+#include <allegro5\allegro_font.h>
+#include <allegro5\allegro_color.h>
 
 #define TILE_SIDE 100
-#define MARGIN 20
+#define MARGIN 50
 #define COLS 3
 #define ROWS 3
 #define TILESXPAGE (COLS*ROWS)
+#define FONTSIZE MARGIN
 
 
 class Board
 {
 
 public:
-	Board();
+	Board(float w,float h, ALLEGRO_FONT * font, ALLEGRO_COLOR color);	//TODO: PONER DEFAULT FONT Y DEFAULT COLOR
 	~Board();
 	
 	/*************************************************************************
@@ -124,10 +124,16 @@ public:
 	**/
 	unsigned long getListSize();
 
+	ALLEGRO_FONT * font;
+	ALLEGRO_COLOR color;
+
 private:
 
 	EDAlist<Tile> tiles;
 
 	unsigned int pageNumber;	//0 para la primer pagina
+	unsigned int margin;
+	unsigned int tileSide;
+
 };
 
