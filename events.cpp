@@ -35,12 +35,12 @@ clearSelection::clearSelection()
 
 compress::compress()
 {
-	Type = COMPRESS;
+	Type = _COMPRESS;
 }
 
 decompress::decompress()
 {
-	Type = DECOMPRESS;
+	Type = _DECOMPRESS;
 }
 
 empty::empty()

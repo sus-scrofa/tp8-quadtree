@@ -10,12 +10,11 @@
 
 #include <algorithm>
 #include "Point.h"
-#include "Gif.h"
 
-#define COMPRESS 0
-#define DECOMPRESS 1
+#include "compilationSwitch.h"
 
-#define	MODE COMPRESS
+
+
 
 class Tile
 {

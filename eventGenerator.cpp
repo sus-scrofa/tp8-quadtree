@@ -1,5 +1,5 @@
 #include "eventGenerator.h"
-
+#include "compilationSwitch.h"
 eventGenerator::eventGenerator()
 {
 	isError = false;
@@ -54,7 +54,12 @@ genericEvent * eventGenerator::getNextEvent()
 			break;
 		case ALLEGRO_KEY_ENTER:
 			//falta flag de compilacion
+#if MODE == COMPRESS
 			ev = new compress;
+#endif
+#if MODE ==DECOMPRESS
+			ev = new decompress;
+#endif
 			break;
 		default:
 			ev = new empty;

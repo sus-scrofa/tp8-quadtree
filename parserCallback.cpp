@@ -1,15 +1,16 @@
+
 #include <iostream>
 #include <boost/filesystem.hpp>
 
 extern "C" {
+#include "parserCallback.h"
 #include "parseCmdLine.h"
 #include "moreString.h"
 }
 
-#define COMPRESS	0
-#define DECOMPRESS	1
 
-#define MODE		COMPRESS
+
+
 
 #if MODE != COMPRESS && MODE != DECOMPRESS
 #error "This program must be compiled either for compression or decompression (set MODE as COMPRESS or DECOMPRESS)."
@@ -17,25 +18,19 @@ extern "C" {
 
 using namespace std;
 
-int	parserCallback (char * key, char * value, void * data);
 
-typedef struct
-{
-	char * path;
-#if MODE == COMPRESS
-	float fidelity;
-#endif
-} cmdLineParserData_t;
 
-int main (void)
-{
-	char * argv [] = {NULL, "Debug", "-fidelity", "10.89"};
-	cmdLineParserData_t data = { NULL, 0.0 };
-	cout << parseCmdLine(4, argv, parserCallback, &data);
-	system ("pause");
 
-	return 0;
-}
+
+//int main (void)
+//{
+//	char * argv [] = {NULL, "Debug", "-fidelity", "10.89"};
+//	cmdLineParserData_t data = { NULL, 0.0 };
+//	cout << parseCmdLine(4, argv, parserCallback, &data);
+//	system ("pause");
+//
+//	return 0;
+//}
 
 
 
