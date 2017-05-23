@@ -33,15 +33,11 @@ clearSelection::clearSelection()
 	Type = DESELECT_ALL;
 }
 
-compress::compress()
+enter::enter()
 {
-	Type = _COMPRESS;
+	Type = ENTER;
 }
 
-decompress::decompress()
-{
-	Type = _DECOMPRESS;
-}
 
 empty::empty()
 {

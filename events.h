@@ -1,6 +1,6 @@
 #pragma once
 #include "genericEvent.h"
-enum { TOGGLE, CHANGE_PAGE,SELECT_ALL, DESELECT_ALL,_COMPRESS,_DECOMPRESS,EMPTY_EVENT };
+enum { TOGGLE, CHANGE_PAGE,SELECT_ALL, DESELECT_ALL,ENTER,EMPTY_EVENT };
 
 class Toggle : public genericEvent
 {
@@ -38,17 +38,13 @@ public:
 	clearSelection();
 };
 
-class compress : public genericEvent
+class enter : public genericEvent
 {
 public:
-	compress();
+	enter();
 };
 
-class decompress : public genericEvent
-{
-public:
-	decompress();
-};
+
 
 class empty : public genericEvent
 {

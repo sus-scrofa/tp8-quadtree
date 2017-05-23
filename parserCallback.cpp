@@ -17,23 +17,6 @@ extern "C" {
 #endif
 
 using namespace std;
-
-
-
-
-
-//int main (void)
-//{
-//	char * argv [] = {NULL, "Debug", "-fidelity", "10.89"};
-//	cmdLineParserData_t data = { NULL, 0.0 };
-//	cout << parseCmdLine(4, argv, parserCallback, &data);
-//	system ("pause");
-//
-//	return 0;
-//}
-
-
-
 int	parserCallback (char * key, char * value, void * data)
 {
 	cmdLineParserData_t * d = (cmdLineParserData_t *) data;

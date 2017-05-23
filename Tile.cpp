@@ -118,7 +118,20 @@ void Tile::draw(Point p, ALLEGRO_FONT * font, ALLEGRO_COLOR color)
 	//TODO: GJKLAHGRELSZ
 
 #elif MODE == DECOMPRESS
-	al_draw_text(font, color, p.getX(), p.getY(), 0, fileName.c_str());
+	int positionOfBarra = 0;
+	unsigned int counter=fileName.size();
+	counter--;
+	while (counter>=0)
+	{
+		if (((fileName.c_str())[counter] == '/') || ((fileName.c_str())[counter] == '\\'))
+		{
+			positionOfBarra = counter;
+			break;
+		}
+		counter--;
+	}
+
+	al_draw_text(font, color, p.getX(), p.getY(), 0, fileName.c_str()+counter);
 	if (selected)
 	{
 		al_draw_rectangle(p.getX(), p.getY(),				//esquina sup izquierda

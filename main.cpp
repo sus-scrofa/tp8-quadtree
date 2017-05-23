@@ -8,6 +8,8 @@ extern "C" {
 #include "parseCmdLine.h"
 #include "parserCallback.h"
 }
+
+
 #include "EDAlist.h"
 #include "Tile.h"
 #include "Point.h"
@@ -40,17 +42,41 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	cmdLineParserData_t data;
-	//queda feooooooooooooooooooooooooooooooo
 	data.path = NULL;
 #if MODE == COMPRESS
 	data.fidelity = 0;
 #endif
+	//chequeo que los paramtero resividos por linea de comando sean correctos
 	if (parseCmdLine(argc, argv, parserCallback, &data) != PARSER_SHOULD_RETURN)
 	{
 		cout << "Argumentos de linea de comando no validos" << endl;
 		return EXIT_FAILURE;
 	}
 
+	al_init();
+	if (!al_init_image_addon())
+	{
+		std::cout << "no se inicializo img addon" << std::endl;
+		return EXIT_FAILURE;
+	}
+
+	if (!al_init_primitives_addon())
+	{
+		std::cout << "no se inicializo primitives addon" << std::endl;
+		al_shutdown_image_addon();
+		return EXIT_FAILURE;
+	}
+
+	if (!al_init_font_addon())
+	{
+		return EXIT_FAILURE;
+	}
+
+	if (!al_init_ttf_addon())
+	{
+		std::cout << "no se inicializo ttf addon" << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	string tPath;
 	directory dirPath(data.path);
@@ -60,31 +86,17 @@ int main(int argc, char *argv[])
 #endif
 
 
-	al_init();
-	//falta el parser
-	if (!al_init_image_addon())
-		cout << "no se inicializo img addon" << endl;
-	if (!al_init_primitives_addon())
-	{
-		cout << "no se inicializo primitives addon" << endl;
-		al_shutdown_image_addon();
-	}
-	
-	al_init_font_addon();
 
-	if (!al_init_ttf_addon())
-	{
-		cout << "no se inicializo ttf addon" << endl;
-	}
 
 	ALLEGRO_FONT * font = al_load_ttf_font("ttf.ttf", 40, 0);//falta chequear si se inicializo correctamente
-	Display dis(al_map_rgb(200, 200, 0),500, 500);
+	
+	Display dis(al_map_rgb(200, 200, 0),1000, 600);
 
 	dis.colorBackground();
 	dis.showChanges();
-	unsigned int size = 200;
+	
 
-	Board b(500,500,font, al_map_rgb(200, 0, 0));
+	Board b(1000,600,font, al_map_rgb(200, 0, 0));
 
 	//geteo los path
 #if MODE == COMPRESS
@@ -135,28 +147,22 @@ int main(int argc, char *argv[])
 		case DESELECT_ALL:
 			b.clearSelection();
 			break;
-#if MODE == COMPRESS
-		case _COMPRESS:
+
+		case ENTER:
 			
 			for (unsigned long int n = 0; n < b.getListSize(); n++)
 			{
 				if ((b.getTile(n)).isSelected())
 				{
+#if MODE == COMPRESS
 					qtCompress((b.getTile(n)).getFileName().c_str(), threshold);
-				}
-			}
-			break;
 #else
-		case _DECOMPRESS:
-			for (unsigned long int n = 0; n < b.getListSize(); n++)
-			{
-				if ((b.getTile(n)).isSelected())
-				{
 					qtDecompress((b.getTile(n)).getFileName().c_str(), 512);
+#endif
 				}
 			}
 			break;
-#endif
+
 		default:
 			break;
 		}
@@ -165,7 +171,7 @@ int main(int argc, char *argv[])
 		dis.showChanges();
 
 
-	} while (events->getType() != _COMPRESS && events->getType() != _DECOMPRESS);
+	} while (events->getType() != ENTER);
 	
 
 	al_destroy_display(dis.getDisplay());

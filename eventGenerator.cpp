@@ -54,12 +54,8 @@ genericEvent * eventGenerator::getNextEvent()
 			break;
 		case ALLEGRO_KEY_ENTER:
 			//falta flag de compilacion
-#if MODE == COMPRESS
-			ev = new compress;
-#endif
-#if MODE ==DECOMPRESS
-			ev = new decompress;
-#endif
+			ev = new enter;
+
 			break;
 		default:
 			ev = new empty;
