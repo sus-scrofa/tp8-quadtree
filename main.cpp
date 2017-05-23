@@ -1,8 +1,13 @@
 #include <iostream>
+extern "C" {
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
-#include <allegro5\allegro_ttf.h>
 #include <allegro5\allegro_font.h>
+#include <allegro5\allegro_ttf.h>
+#include <allegro5\allegro_primitives.h>
+#include "parseCmdLine.h"
+#include "parserCallback.h"
+}
 #include "EDAlist.h"
 #include "Tile.h"
 #include "Point.h"
@@ -17,14 +22,20 @@
 #include "eventGenerator.h"
 
 #include "compilationSwitch.h"
-extern "C"
-{
-#include "parseCmdLine.h"
-#include "parserCallback.h"
-}
 
 
 using namespace std;
+
+#if		MODE == COMPRESS
+#define PARSER_SHOULD_RETURN 2
+#elif	MODE == DECOMPRESS
+#define PARSER_SHOULD_RETURN 1
+#else
+#error	"The MODE of this program must be either COMPRESS or DECOMPRESS"
+#endif
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -34,17 +45,18 @@ int main(int argc, char *argv[])
 #if MODE == COMPRESS
 	data.fidelity = 0;
 #endif
-	if (parseCmdLine(argc, argv, parserCallback, &data) == -1)
+	if (parseCmdLine(argc, argv, parserCallback, &data) != PARSER_SHOULD_RETURN)
 	{
-		exit(4);
+		cout << "Argumentos de linea de comando no validos" << endl;
+		return EXIT_FAILURE;
 	}
 
 
 	string tPath;
 	directory dirPath(data.path);
-	unsigned int threshold = 90;
+
 #if MODE == COMPRESS
-	threshold = data.fidelity;
+	unsigned threshold = data.fidelity;
 #endif
 
 
@@ -58,18 +70,15 @@ int main(int argc, char *argv[])
 		al_shutdown_image_addon();
 	}
 	
-	if (!al_init_font_addon())
-	{
-		cout << "no se inicializo font addon" << endl;
-	}
+	al_init_font_addon();
 
 	if (!al_init_ttf_addon())
 	{
 		cout << "no se inicializo ttf addon" << endl;
 	}
 
-	ALLEGRO_FONT * font = al_load_ttf_font("ttf.ttf", 12, 0);//falta chequear si se inicializo correctamente
-	Display dis(500, 500, al_map_rgb(200, 200, 0));
+	ALLEGRO_FONT * font = al_load_ttf_font("ttf.ttf", 40, 0);//falta chequear si se inicializo correctamente
+	Display dis(al_map_rgb(200, 200, 0),500, 500);
 
 	dis.colorBackground();
 	dis.showChanges();
@@ -120,14 +129,13 @@ int main(int argc, char *argv[])
 			break;
 		case SELECT_ALL:
 			
-			for (unsigned long int n = 0; n < b.getListSize(); n++)
-				b.selectTile(n);
+			b.selectAll();
 			
 			break;
 		case DESELECT_ALL:
-			for (unsigned long int n = 0; n < b.getListSize(); n++)
-				b.deselectTile(n);
+			b.clearSelection();
 			break;
+#if MODE == COMPRESS
 		case _COMPRESS:
 			
 			for (unsigned long int n = 0; n < b.getListSize(); n++)
@@ -138,15 +146,17 @@ int main(int argc, char *argv[])
 				}
 			}
 			break;
+#else
 		case _DECOMPRESS:
 			for (unsigned long int n = 0; n < b.getListSize(); n++)
 			{
 				if ((b.getTile(n)).isSelected())
 				{
-					qtDecompress((b.getTile(n)).getFileName().c_str(), 16);
+					qtDecompress((b.getTile(n)).getFileName().c_str(), 512);
 				}
 			}
 			break;
+#endif
 		default:
 			break;
 		}

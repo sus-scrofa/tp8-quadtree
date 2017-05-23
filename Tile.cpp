@@ -1,15 +1,21 @@
 #include "Tile.h"
+#include <algorithm>
+#include <iostream>
+#include <allegro5\allegro_image.h>
+#include <allegro5\allegro_primitives.h>
 
 //TODO: constructor sin parametros, que cargue quizas una imagen de error? kcyo
+
+using namespace std;
 
 
 Tile::Tile(std::string fileName, float side, ALLEGRO_FONT * font, ALLEGRO_COLOR color)
 {
 	selected = false;
 	this->fileName = fileName;
+	this->side = side;
 
 #if MODE == COMPRESS	//cargar el lado y el bitmap del png
-	this->side = side;
 
 	valid = true;
 	if (!(img = al_load_bitmap(fileName.c_str())))
@@ -93,7 +99,7 @@ void Tile::draw(Point p, ALLEGRO_FONT * font, ALLEGRO_COLOR color)
 		float h = (float)al_get_bitmap_height(img);
 
 		//float resize = 1.0;
-		float resize = ((float)side / (float)std::max(w, h));	//hallar el valor por el cual debo modificar las 
+		float resize = ((float)side / (float)max(w, h));	//hallar el valor por el cual debo modificar las 
 																//dimensiones de la imagen para que entre en el 
 																//espacio de la tile, y dibujar escalado.
 
@@ -113,6 +119,12 @@ void Tile::draw(Point p, ALLEGRO_FONT * font, ALLEGRO_COLOR color)
 
 #elif MODE == DECOMPRESS
 	al_draw_text(font, color, p.getX(), p.getY(), 0, fileName.c_str());
+	if (selected)
+	{
+		al_draw_rectangle(p.getX(), p.getY(),				//esquina sup izquierda
+		p.getX() + side, p.getY() + side,		//esquina inf derecha
+		color, 1);										//color y grosor
+	}
 
 #else
 	//TODO:

@@ -1,14 +1,10 @@
 #pragma once
 
 #include <string>
-#include <iostream>
 
-#include <allegro5\allegro_image.h>
-#include <allegro5\allegro_primitives.h>
 #include <allegro5\allegro_font.h>
 #include <allegro5\allegro_color.h>
 
-#include <algorithm>
 #include "Point.h"
 
 #include "compilationSwitch.h"
@@ -97,10 +93,10 @@ private:
 	bool valid;
 	std::string fileName;
 	bool selected;
+	unsigned int side;
 
 	#if MODE == COMPRESS
 	ALLEGRO_BITMAP* img;
-	unsigned int side;
 
 	#elif MODE == DECOMPRESS
 	ALLEGRO_FONT * font;	//fuente a usar

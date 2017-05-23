@@ -74,25 +74,25 @@ public:
 	*********************************************************/
 	void toggleSelectTile(unsigned int tileNumber);
 
-	/********************************************************************
-	Funcion Board::selectTile
+	///********************************************************************
+	//Funcion Board::selectTile
 
-	Marca una tile como seleccionada
+	//Marca una tile como seleccionada
 
-	Recibe:
-	unsigned int tileNumber: el numero de la tile que se quiere modificar
-	*********************************************************************/
-	void selectTile(unsigned int tileNumber);
+	//Recibe:
+	//unsigned int tileNumber: el numero de la tile que se quiere modificar
+	//*********************************************************************/
+	//void selectTile(unsigned int tileNumber);
 
-	/********************************************************************
-	Funcion Board::deselectTile
+	///********************************************************************
+	//Funcion Board::deselectTile
 
-	Marca una tile como deseleccionada
+	//Marca una tile como deseleccionada
 
-	Recibe:
-	unsigned int tileNumber: el numero de la tile que se quiere modificar
-	*********************************************************************/
-	void deselectTile(unsigned int tileNumber);
+	//Recibe:
+	//unsigned int tileNumber: el numero de la tile que se quiere modificar
+	//*********************************************************************/
+	//void deselectTile(unsigned int tileNumber);
 
 	/******************************************************************
 	Funcion Board::draw
@@ -123,6 +123,9 @@ public:
 	
 	**/
 	unsigned long getListSize();
+
+	void selectAll();
+	void clearSelection();
 
 	ALLEGRO_FONT * font;
 	ALLEGRO_COLOR color;

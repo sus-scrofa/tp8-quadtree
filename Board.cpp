@@ -65,22 +65,25 @@ void Board::prevPage()
 
 void Board::toggleSelectTile(unsigned int tileNumber)
 {
-	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).toggleSelect();
+	if (pageNumber*TILESXPAGE + tileNumber < tiles.getSize())
+		tiles.getElement(pageNumber*TILESXPAGE + tileNumber).toggleSelect();
 }
-
-void Board::selectTile(unsigned int tileNumber)
-{
-	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).select();
-}
-
-void Board::deselectTile(unsigned int tileNumber)
-{
-	tiles.getElement(pageNumber*TILESXPAGE + tileNumber).deselect();
-}
+//
+//void Board::selectTile(unsigned int tileNumber)
+//{
+//	if (pageNumber*TILESXPAGE + tileNumber < tiles.getSize())
+//		tiles.getElement(pageNumber*TILESXPAGE + tileNumber).select();
+//}
+//
+//void Board::deselectTile(unsigned int tileNumber)
+//{
+//	if (pageNumber*TILESXPAGE + tileNumber < tiles.getSize())
+//		tiles.getElement(pageNumber*TILESXPAGE + tileNumber).deselect();
+//}
 
 void Board::draw()
 {
-	for (int i = 0; i < TILESXPAGE && i < (tiles.getSize() - TILESXPAGE * pageNumber); i++)
+	for (unsigned int i = 0; i < TILESXPAGE && i < (tiles.getSize() - TILESXPAGE * pageNumber); i++)
 	{
 		float x = margin + (i%COLS)*(margin + tileSide);
 		float y = margin + (int)(i / COLS)*(margin + tileSide);
@@ -100,4 +103,16 @@ bool Board::isLastPage()
 		return true;
 	}
 	return ((int)((int)(tiles.getSize() - 1) / TILESXPAGE) == pageNumber);
+}
+
+void Board :: selectAll()
+{
+	for (unsigned int i = 0; i<tiles.getSize(); i++)
+		tiles.getElement(i).select();
+}
+
+void Board :: clearSelection()
+{
+	for (unsigned int i = 0; i<tiles.getSize(); i++)
+		tiles.getElement(i).deselect();
 }

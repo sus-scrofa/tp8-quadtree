@@ -1,9 +1,12 @@
 #ifndef Background_hpp
 #define Background_hpp
-
+extern "C"
+{
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_image.h>
+}
+
 
 
 #define FLOORY		616		// Coordenada Y del piso donde se apoyan los worms
@@ -18,7 +21,7 @@
 class Display
 {
 public:
-	Display(float displayWidth = BGWIDTH, float displayHeight = BGHEIGHT, ALLEGRO_COLOR color = { 0,0,0,0 });
+	Display(ALLEGRO_COLOR color, float displayWidth = BGWIDTH, float displayHeight = BGHEIGHT);
 	ALLEGRO_DISPLAY* getDisplay();
 	void drawBackground();
 	void colorBackground();

@@ -7,7 +7,7 @@ using namespace std;
 // Constructor de un objeto Display.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-Display::Display(float _displayWidth, float _displayHeight, ALLEGRO_COLOR color)
+Display::Display(ALLEGRO_COLOR color,float _displayWidth, float _displayHeight)
 {
 	displayWidth = _displayWidth;		//cargar tamanio de display
 	displayHeight = _displayHeight;

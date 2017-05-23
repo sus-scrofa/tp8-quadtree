@@ -41,7 +41,7 @@ public:
 				if (position > 0)	//si no se eligio la primer posicion
 				{
 					Node <T> * currentNode = firstNode;
-					for (int i = 1; i < position; i++)
+					for (unsigned int i = 1; i < position; i++)
 						currentNode = currentNode->nextNode;
 					Node <T> * tempNode = new Node<T>;
 					tempNode->nextNode = currentNode->nextNode;
@@ -81,7 +81,7 @@ public:
 			Node <T> * currentNode = firstNode;
 			if (position > 0)
 			{
-				for (int j = 0; j < (position - 1); j++)	//moverse hasta el nodo anterior del nodo a eliminar
+				for (unsigned int j = 0; j < (position - 1); j++)	//moverse hasta el nodo anterior del nodo a eliminar
 					currentNode = currentNode->nextNode;
 				Node <T> * deleteNode = currentNode->nextNode;	//puntero al nodo a eliminar
 				currentNode->nextNode = deleteNode->nextNode;	//"saltearse" el nodo a eliminar con el puntero del nodo anterior
@@ -119,7 +119,7 @@ public:
 
 		if (position < size)
 		{
-			for (int k = 0; k < position; k++)		//moverse hasta el nodo correspondiente
+			for (unsigned int k = 0; k < position; k++)		//moverse hasta el nodo correspondiente
 				currentNode = currentNode->nextNode;
 		}
 		return currentNode->data;
